@@ -13,21 +13,7 @@ const Game = () => {
         <Letter letter="b" x={200} y={250} width={100} height={100} />
         <Letter letter="c" x={300} y={250} width={100} height={100} />
         <Letter letter="d" x={400} y={250} width={100} height={100} />
-        <Constraint>
-          <Letter letter="e" x={500} y={250} width={100} height={100} />
-
-          <Circle
-            x={600}
-            y={250}
-            radius={50}
-            options={
-              {
-                // isSensor: true
-                // isStatic: true
-              }
-            }
-          />
-        </Constraint>
+        <Letter letter="e" x={500} y={250} width={100} height={100} />
       </SpriteMap>
       <Rectangle
         x={500}

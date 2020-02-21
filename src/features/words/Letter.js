@@ -1,9 +1,9 @@
 import React from "react";
 import { useLetter } from "./hooks";
-import Shape from "../../matter/extra/Shape";
+import { Shape, Constraint, Circle } from "../../matter";
 import styles from "./Letter.module.scss";
 
-const Letter = ({ letter, ...props }) => {
+const Letter = ({ x, y, letter, ...props }) => {
   const letterData = useLetter(letter);
 
   if (!letterData) {
@@ -12,19 +12,39 @@ const Letter = ({ letter, ...props }) => {
   const { id, shape } = letterData;
 
   return (
-    <Shape
-      paths={[shape]}
-      cloneID={id}
-      cloneProps={{
-        className: styles.Letter
+    <Constraint
+      render={{
+        visible: false
       }}
-      options={{
-        render: {
-          visible: false
-        }
-      }}
-      {...props}
-    />
+      stiffness={1}
+    >
+      <Circle
+        x={x}
+        y={y}
+        radius={50}
+        options={{
+          isSensor: true,
+          render: {
+            visible: false
+          }
+        }}
+      />
+      <Shape
+        x={x}
+        y={y}
+        paths={[shape]}
+        cloneID={id}
+        cloneProps={{
+          className: styles.Letter
+        }}
+        options={{
+          render: {
+            visible: false
+          }
+        }}
+        {...props}
+      />
+    </Constraint>
   );
 };
 
