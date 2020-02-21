@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Engine, Walls, RenderClones } from "../matter";
 import styles from "./App.module.scss";
 import Game from "./Game";
+import { ValueObject } from "tuplerone";
 
 const App = () => {
   const { clientWidth, clientHeight } = document.documentElement;
@@ -14,22 +15,22 @@ const App = () => {
   const wallWidth = 100;
 
   return (
-    <Engine options={{}}>
+    <Engine options={ValueObject({})}>
       <div className={styles.App}>
         <RenderClones
           className={styles.Render}
-          options={{
+          options={ValueObject({
             width: sceneWidth,
             height: sceneHeight,
             background: "transparent",
             wireframeBackground: "transparent"
-          }}
-          mouseConstraintOptions={{
+          })}
+          mouseConstraintOptions={ValueObject({
             stiffness: 0.25,
             render: {
               visible: true
             }
-          }}
+          })}
         >
           <Walls
             x={-wallWidth}
@@ -37,11 +38,11 @@ const App = () => {
             width={sceneWidth + wallWidth}
             height={sceneHeight + wallWidth}
             wallWidth={100}
-            options={{
+            options={ValueObject({
               render: {
                 visible: false
               }
-            }}
+            })}
           />
           <Game />
         </RenderClones>

@@ -2,13 +2,14 @@ import React, { createRef } from "react";
 import Matter from "matter-js";
 import Body from "./Body";
 import { randomSuffix } from "../util";
+import { ValueObject } from "tuplerone";
 
 const Circle = ({
   x,
   y,
   radius,
   clone = false,
-  options = {},
+  options = ValueObject({}),
   ...props
 } = {}) => {
   const create = () => {

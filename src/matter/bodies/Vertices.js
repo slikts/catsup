@@ -14,7 +14,6 @@ const Vertices = ({
   flagInternal = false,
   cloneID = null,
   cloneProps = {},
-  setBody = null,
   ...props
 } = {}) => {
   const create = () => {
@@ -25,10 +24,6 @@ const Vertices = ({
       options,
       flagInternal
     );
-
-    if (setBody) {
-      setBody(body);
-    }
 
     const ref = createRef();
     const { min, max } = body.bounds;

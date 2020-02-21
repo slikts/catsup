@@ -1,9 +1,10 @@
-import React, { createRef, useState } from "react";
+import React from "react";
+import { ValueObject } from "tuplerone";
 import { useLetter } from "./hooks";
 import { Shape, Constraint, Circle } from "../../matter";
 import styles from "./Letter.module.scss";
 
-const Letter = ({ x, y, letter, setBody: setBodyParent, ...props }) => {
+const Letter = ({ x, y, letter, ...props }) => {
   const letterData = useLetter(letter);
 
   if (!letterData) {
@@ -13,35 +14,35 @@ const Letter = ({ x, y, letter, setBody: setBodyParent, ...props }) => {
 
   return (
     <Constraint
-      render={{
+      render={ValueObject({
         visible: false
-      }}
+      })}
       stiffness={1}
     >
       <Circle
         x={x}
         y={y}
         radius={55}
-        options={{
+        options={ValueObject({
           isSensor: true,
           render: {
             visible: false
           }
-        }}
+        })}
       />
       <Shape
         x={x}
         y={y}
-        paths={[shape]}
+        paths={ValueObject([shape])}
         cloneID={id}
-        cloneProps={{
+        cloneProps={ValueObject({
           className: styles.Letter
-        }}
-        options={{
+        })}
+        options={ValueObject({
           render: {
             visible: false
           }
-        }}
+        })}
         {...props}
       />
     </Constraint>

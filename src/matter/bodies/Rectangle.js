@@ -2,6 +2,7 @@ import React, { createRef } from "react";
 import Matter from "matter-js";
 import Body from "./Body";
 import { randomSuffix } from "../util";
+import { ValueObject } from "tuplerone";
 
 const Rectangle = ({
   x,
@@ -9,9 +10,9 @@ const Rectangle = ({
   width,
   height,
   clone = false,
-  options = {},
+  options = ValueObject({}),
   ...props
-} = {}) => {
+}) => {
   const create = () => {
     const body = Matter.Bodies.rectangle(x, y, width, height, options);
     if (clone) {

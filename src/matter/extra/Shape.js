@@ -2,7 +2,7 @@ import React from "react";
 import Matter from "matter-js";
 import Vertices from "../bodies/Vertices";
 
-const Shape = ({ paths, sampleLength = 30, hull = true, ...props }) => {
+const Shape = ({ paths, sampleLength = 30, ...props }) => {
   if (!paths) {
     return null;
   }
@@ -10,6 +10,7 @@ const Shape = ({ paths, sampleLength = 30, hull = true, ...props }) => {
   const vertexSets = paths.map(path =>
     Matter.Svg.pathToVertices(path, sampleLength)
   );
+
   return <Vertices vertexSets={vertexSets} {...props} />;
 };
 
