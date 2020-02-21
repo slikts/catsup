@@ -1,0 +1,51 @@
+$bg: #4e210d;
+$fg: #ef6b33;
+// $fg: #06f;
+$fg: #8a755e;
+$fg: #a17a3c;
+$bg: #1a1a1a;
+$bg: darken($fg, 40%);
+
+body,
+html,
+#root {
+  height: 100%;
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  background: #111;
+  overflow: hidden;
+}
+
+.clone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  // outline: #f06 solid 1px;
+}
+.clone svg {
+  fill: rgba(255, 255, 255, 0.1);
+  fill: #666;
+  fill: $fg;
+  /* fill: #d5b27b; */
+  stroke: rgba(0, 0, 0, 0.2);
+  stroke: transparentize($bg, 0.5);
+  /* stroke: #e6a036; */
+  stroke-width: 30px;
+  stroke-linejoin: round;
+
+  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3));
+  /* background: #000; */
+  // display: none;
+  // opacity: 0;
+  // transform: translate(-50%, -50%);
+  // outline: #f60 solid 1px;
+}
