@@ -4,14 +4,6 @@ import Body from "./Body";
 
 const px = n => `${n}px`;
 
-const parseViewbox = viewbox => {
-  const [x, y, width, height] = viewbox
-    .trim()
-    .split(/\s+/)
-    .map(Number);
-  return { x, y, width, height };
-};
-
 const Vertices = ({
   x,
   y,
@@ -53,8 +45,6 @@ const Vertices = ({
       body.bounds.max.x - body.bounds.min.x
     );
 
-    // console.log(2, vbw, vbh);
-
     const svg = (
       <use
         xlinkHref={`#${cloneID}`}
@@ -62,7 +52,6 @@ const Vertices = ({
         width={px(scaledWidth)}
         height={px(scaledHeight)}
         key={cloneID}
-        // height={`100px`}
         x={px(-scaledWidth / 2)}
         y={px(-scaledHeight / 2)}
       />
