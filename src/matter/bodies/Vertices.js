@@ -31,23 +31,27 @@ const Vertices = ({
       options,
       flagInternal
     );
-    // console.log(body, cloneID);
     const ref = createRef();
     const { min, max } = body.bounds;
-    // console.log(body.bounds, body.position, x, y);
 
     const _width = max.x - min.x;
     const _height = max.y - min.y;
-    // console.log(223, width, _width, width / _width);
     const scale = Math.min(width / _width, height / _height);
-    // const scaledWidth = width * scale;
-    // const scaledHeight = height * scale;
     Matter.Body.scale(body, scale, scale);
-    const viewBox = parseViewbox(
-      document.querySelector(`#${cloneID}`).getAttribute("viewBox")
+    // const viewBox = parseViewbox(
+    //   document.querySelector(`#${cloneID}`).getAttribute("viewBox")
+    // );
+
+    const ratio = 1.4;
+    const scaledWidth = _width * scale * ratio;
+    const scaledHeight = _height * scale * ratio;
+    console.log(
+      _width * scale,
+      _height * scale,
+      body.bounds.min,
+      body.bounds.max,
+      body.bounds.max.x - body.bounds.min.x
     );
-    const scaledWidth = Math.abs((viewBox.width - viewBox.x) * scale);
-    const scaledHeight = Math.abs((viewBox.height - viewBox.y) * scale);
 
     // console.log(2, vbw, vbh);
 
@@ -55,9 +59,10 @@ const Vertices = ({
       <use
         xlinkHref={`#${cloneID}`}
         ref={ref}
-        key={cloneID}
         width={px(scaledWidth)}
         height={px(scaledHeight)}
+        key={cloneID}
+        // height={`100px`}
         x={px(-scaledWidth / 2)}
         y={px(-scaledHeight / 2)}
       />

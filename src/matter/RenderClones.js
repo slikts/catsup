@@ -31,7 +31,6 @@ const RenderDOM = ({ children, options, margin = 40, ...props }) => {
       if (!object.clone) {
         return;
       }
-
       bodies.remove(object);
       rerender();
     });
@@ -40,6 +39,8 @@ const RenderDOM = ({ children, options, margin = 40, ...props }) => {
         if (body.isSleeping) {
           return;
         }
+
+        // console.log(body);
 
         const { x, y } = body.position;
         const clone = body.clone.ref.current;

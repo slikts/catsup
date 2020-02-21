@@ -15,7 +15,7 @@ const SpriteMap = ({ docs, margin = 40, children }) => {
   const [map, setMap] = useState();
 
   useEffect(() => {
-    if (!docs) {
+    if (!docs || map) {
       return;
     }
 
@@ -43,16 +43,21 @@ const SpriteMap = ({ docs, margin = 40, children }) => {
           symbol.setAttribute("viewBox", viewBox);
           spriteMap.appendChild(symbol);
 
-          return [id, { id: randomID, shape }];
+          return [id, { id: randomID, shape, symbol }];
         })
       )
       .flat();
     setMap(new Map(entries));
 
     return () => {
-      // XXX:
+      if (map) {
+        for (const [id, { symbol }] of map.entries()) {
+          spriteMap.removeChild(symbol);
+          map.remove(id);
+        }
+      }
     };
-  }, [docs, margin]);
+  }, [docs, map, margin]);
 
   return <Provider value={map}>{children}</Provider>;
 };

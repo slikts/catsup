@@ -41,6 +41,8 @@ const Render = ({
       }
     }
 
+    console.log(render);
+
     return () => {
       Matter.Render.stop(render);
       Matter.Runner.stop(runner);
