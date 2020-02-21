@@ -27,8 +27,6 @@ const Vertices = ({
     );
 
     if (setBody) {
-      console.log(1232);
-
       setBody(body);
     }
 

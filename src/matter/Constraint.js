@@ -17,8 +17,6 @@ const Constraint = ({ children, length, ...options }) => {
       return;
     }
 
-    console.log(options);
-
     const constraint = Matter.Constraint.create({
       bodyA,
       bodyB,

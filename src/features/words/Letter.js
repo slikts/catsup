@@ -1,9 +1,9 @@
-import React from "react";
+import React, { createRef, useState } from "react";
 import { useLetter } from "./hooks";
 import { Shape, Constraint, Circle } from "../../matter";
 import styles from "./Letter.module.scss";
 
-const Letter = ({ x, y, letter, ...props }) => {
+const Letter = ({ x, y, letter, setBody: setBodyParent, ...props }) => {
   const letterData = useLetter(letter);
 
   if (!letterData) {
@@ -21,7 +21,7 @@ const Letter = ({ x, y, letter, ...props }) => {
       <Circle
         x={x}
         y={y}
-        radius={50}
+        radius={55}
         options={{
           isSensor: true,
           render: {

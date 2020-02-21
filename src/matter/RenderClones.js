@@ -31,7 +31,8 @@ const RenderDOM = ({ children, options, margin = 40, ...props }) => {
       if (!object.clone) {
         return;
       }
-      bodies.remove(object);
+
+      bodies.delete(object);
       rerender();
     });
     Matter.Events.on(engine, "afterUpdate", ({ timestamp }) => {
