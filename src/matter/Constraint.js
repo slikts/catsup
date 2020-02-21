@@ -1,18 +1,18 @@
-import React, { useEffect, createRef, cloneElement } from "react";
+import React, { useEffect, createRef, cloneElement, useState } from "react";
 import Matter from "matter-js";
 import { useEngine } from "../matter";
 
 const Constraint = ({ children, ...options }) => {
   const engine = useEngine();
 
-  const bodyRefs = [createRef(), createRef()];
+  const [bodyA, setBodyA] = useState();
+  const [bodyB, setBodyB] = useState();
 
   useEffect(() => {
     if (!engine) {
       return;
     }
 
-    const [{ current: bodyA }, { current: bodyB }] = bodyRefs;
     if (!bodyA || !bodyB) {
       return;
     }
@@ -27,11 +27,11 @@ const Constraint = ({ children, ...options }) => {
     return () => {
       Matter.World.remove(engine.world, constraint);
     };
-  }, [options, bodyRefs, engine]);
+  }, [options, engine, bodyA, bodyB]);
 
-  return bodyRefs.map((bodyRef, key) =>
+  return [setBodyA, setBodyB].map((setBody, key) =>
     cloneElement(children[key], {
-      bodyRef,
+      setBody,
       key
     })
   );

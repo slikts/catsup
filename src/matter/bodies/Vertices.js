@@ -13,6 +13,8 @@ const Vertices = ({
   options = {},
   flagInternal = false,
   cloneID = null,
+  cloneProps = {},
+  setBody = null,
   ...props
 } = {}) => {
   const create = () => {
@@ -23,6 +25,13 @@ const Vertices = ({
       options,
       flagInternal
     );
+
+    if (setBody) {
+      console.log(1232);
+
+      setBody(body);
+    }
+
     const ref = createRef();
     const { min, max } = body.bounds;
 
@@ -34,16 +43,10 @@ const Vertices = ({
     //   document.querySelector(`#${cloneID}`).getAttribute("viewBox")
     // );
 
+    // XXX: why?
     const ratio = 1.4;
     const scaledWidth = _width * scale * ratio;
     const scaledHeight = _height * scale * ratio;
-    console.log(
-      _width * scale,
-      _height * scale,
-      body.bounds.min,
-      body.bounds.max,
-      body.bounds.max.x - body.bounds.min.x
-    );
 
     const svg = (
       <use
@@ -54,6 +57,7 @@ const Vertices = ({
         key={cloneID}
         x={px(-scaledWidth / 2)}
         y={px(-scaledHeight / 2)}
+        {...cloneProps}
       />
     );
     body.clone = {

@@ -1,7 +1,7 @@
 //@ts-check
 
 import React, { useState } from "react";
-import { Engine, Rectangle, Constraint, Walls, RenderClones } from "../matter";
+import { Engine, Walls, RenderClones } from "../matter";
 import styles from "./App.module.scss";
 import Game from "./Game";
 
@@ -31,13 +31,6 @@ const App = () => {
             }
           }}
         >
-          {/* <Rectangle clone x={100} y={100} width={100} height={100} />
-          <Rectangle x={100} y={100} width={100} height={100} />
-          <Rectangle x={0} y={0} width={100} height={100} />
-          <Constraint>
-            <Rectangle x={200} y={100} width={100} height={100} />
-            <Rectangle x={300} y={100} width={100} height={100} />
-          </Constraint> */}
           <Walls
             x={-wallWidth}
             y={-wallWidth}

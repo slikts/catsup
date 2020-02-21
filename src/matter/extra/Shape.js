@@ -6,11 +6,9 @@ const Shape = ({ paths, sampleLength = 30, hull = true, ...props }) => {
   if (!paths) {
     return null;
   }
-
   const vertexSets = paths.map(path =>
     Matter.Svg.pathToVertices(path, sampleLength)
   );
-
   return <Vertices vertexSets={vertexSets} {...props} />;
 };
 

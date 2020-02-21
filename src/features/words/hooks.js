@@ -13,9 +13,14 @@ export const useLetterData = () => {
     () =>
       void fetch(letterPaths).then(async response => {
         const parser = new DOMParser();
-        setLetters([
-          parser.parseFromString(await response.text(), "image/svg+xml")
-        ]);
+        const svg = parser.parseFromString(
+          await response.text(),
+          "image/svg+xml"
+        );
+        for (const path of svg.querySelectorAll("[id]")) {
+          path.removeAttribute("style");
+        }
+        setLetters([svg]);
       }),
     []
   );

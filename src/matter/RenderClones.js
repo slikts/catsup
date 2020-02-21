@@ -40,8 +40,6 @@ const RenderDOM = ({ children, options, margin = 40, ...props }) => {
           return;
         }
 
-        // console.log(body);
-
         const { x, y } = body.position;
         const clone = body.clone.ref.current;
         // const { min, max } = body.bounds;

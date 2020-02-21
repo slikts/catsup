@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Matter from "matter-js";
 import { useEngine } from "../Engine";
 
-const Body = ({ create, clone, bodyRef } = {}) => {
+const Body = ({ create, clone, setBody = null } = {}) => {
   const engine = useEngine();
 
   useEffect(() => {
@@ -10,8 +10,8 @@ const Body = ({ create, clone, bodyRef } = {}) => {
       return;
     }
     const body = create();
-    if (bodyRef) {
-      bodyRef.current = body;
+    if (setBody) {
+      setBody(body);
     }
 
     if (clone) {
@@ -22,11 +22,11 @@ const Body = ({ create, clone, bodyRef } = {}) => {
 
     return () => {
       Matter.World.remove(engine.world, body);
-      if (bodyRef) {
-        bodyRef.current = null;
+      if (setBody) {
+        setBody(null);
       }
     };
-  }, [bodyRef, engine, create, clone]);
+  }, [setBody, engine, create, clone]);
 
   return null;
 };
