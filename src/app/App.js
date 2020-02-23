@@ -15,35 +15,35 @@ const App = () => {
   const wallWidth = 100;
 
   return (
-    <Engine options={ValueObject({})}>
+    <Engine options={{}}>
       <div className={styles.App}>
         <RenderClones
           className={styles.Render}
-          options={ValueObject({
+          options={{
             width: sceneWidth,
             height: sceneHeight,
             background: "transparent",
             wireframeBackground: "transparent"
-          })}
-          mouseConstraintOptions={ValueObject({
+          }}
+          mouseConstraintOptions={{
             stiffness: 0.25,
             render: {
               visible: true
             }
-          })}
+          }}
         >
-          <Walls
+          {/* <Walls
             x={-wallWidth}
             y={-wallWidth}
             width={sceneWidth + wallWidth}
             height={sceneHeight + wallWidth}
             wallWidth={100}
-            options={ValueObject({
+            options={{
               render: {
                 visible: false
               }
-            })}
-          />
+            }}
+          /> */}
           <Game />
         </RenderClones>
       </div>

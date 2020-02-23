@@ -13,12 +13,13 @@ const Game = () => {
 
   return (
     <>
+      {/* <Letter letter="a" x={100} y={250} width={100} height={100} /> */}
       <SpriteMap docs={letters}>
         <Letter letter="a" x={100} y={250} width={100} height={100} />
-        <Letter letter="b" x={200} y={250} width={100} height={100} />
+        {/* <Letter letter="b" x={200} y={250} width={100} height={100} />
         <Letter letter="c" x={300} y={250} width={100} height={100} />
         <Letter letter="d" x={400} y={250} width={100} height={100} />
-        <Letter letter="e" x={500} y={250} width={100} height={100} />
+        <Letter letter="e" x={500} y={250} width={100} height={100} /> */}
       </SpriteMap>
     </>
   );

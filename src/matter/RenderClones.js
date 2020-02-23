@@ -1,66 +1,72 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Matter from "matter-js";
-// import { produce } from "immer";
 import Render from "./Render";
 import { useEngine } from "./Engine";
 import styles from "./RenderClones.module.scss";
-import { useRerender } from "./hooks";
+import { valueMemo } from "./util";
 
 const RenderDOM = ({ children, options, margin = 40, ...props }) => {
   const engine = useEngine();
   const { width, height } = options;
   const [bodies] = useState(new Set());
-  const _bodies = [...bodies];
-  const domClones = _bodies.map(({ clone: { el } }) => el).filter(Boolean);
-  const svgClones = _bodies.map(({ clone: { svg } }) => svg).filter(Boolean);
-  const rerender = useRerender();
+  const [clones, setClones] = useState(null);
 
-  useLayoutEffect(() => {
-    if (!engine) {
-      return;
-    }
+  useEffect(() => {
+    const updateClones = (...bodies) => {
+      // TODO: make it more efficient
+      const _bodies = [...bodies];
+      const svg = _bodies.map(({ clone: { el } }) => el).filter(Boolean);
+      const dom = _bodies.map(({ clone: { svg } }) => svg).filter(Boolean);
+      setClones({
+        svg,
+        dom
+      });
+    };
+    updateClones();
 
     Matter.Events.on(engine.world, "afterAdd", ({ object }) => {
       if (!object.clone) {
         return;
       }
       bodies.add(object);
-      rerender();
+      updateClones();
     });
     Matter.Events.on(engine.world, "afterRemove", ({ object }) => {
       if (!object.clone) {
         return;
       }
-
       bodies.delete(object);
-      rerender();
+      updateClones();
     });
     Matter.Events.on(engine, "afterUpdate", ({ timestamp }) => {
-      for (const body of _bodies) {
+      for (const body of bodies) {
         if (body.isSleeping) {
           return;
         }
 
         const { x, y } = body.position;
         const clone = body.clone.ref.current;
-        // const { min, max } = body.bounds;
-        // clone.style.width = `${max.x - min.x + margin}px`;
-        // clone.style.height = `${max.y - min.y + margin}px`;
 
         clone.style.transform = `translate(${x}px, ${y}px) rotate(${body.angle}rad)`;
       }
     });
-  }, [_bodies, bodies, engine, margin, rerender]);
+
+    return () => {
+      // TODO: proper cleanup
+      bodies.clear();
+      updateClones();
+    };
+  }, [bodies, engine]);
 
   return (
     <Render {...props} options={options}>
-      <div className={styles.domClones}>{domClones}</div>
+      <div className={styles.domClones}>{clones?.dom}</div>
       <svg viewBox={`0 0 ${width} ${height}`} className={styles.svgClones}>
-        {svgClones}
+        {clones?.svg}
       </svg>
       {children}
     </Render>
   );
 };
 
-export default React.memo(RenderDOM);
+export default valueMemo(RenderDOM);

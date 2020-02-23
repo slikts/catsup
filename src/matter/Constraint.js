@@ -1,22 +1,17 @@
-import React, { useEffect, cloneElement, useState } from "react";
+import { useEffect, cloneElement, useState, useRef } from "react";
 import Matter from "matter-js";
 import { useEngine } from "../matter";
+import { valueMemo } from "../util";
 
 const Constraint = ({ children, length, ...options }) => {
   const engine = useEngine();
 
-  const [bodyA, setBodyA] = useState();
-  const [bodyB, setBodyB] = useState();
+  const bodyARef = useRef();
+  const bodyBRef = useRef();
 
   useEffect(() => {
-    if (!engine) {
-      return;
-    }
-
-    if (!bodyA || !bodyB) {
-      return;
-    }
-
+    const { current: bodyA } = bodyARef;
+    const { current: bodyB } = bodyBRef;
     const constraint = Matter.Constraint.create({
       bodyA,
       bodyB,
@@ -28,14 +23,14 @@ const Constraint = ({ children, length, ...options }) => {
     return () => {
       Matter.World.remove(engine.world, constraint);
     };
-  }, [options, engine, bodyA, bodyB, length]);
+  }, [options, engine, length]);
 
-  return [setBodyA, setBodyB].map((setBody, key) =>
+  return [bodyARef, bodyBRef].map((bodyRef, key) =>
     cloneElement(children[key], {
-      setBody,
+      bodyRef,
       key
     })
   );
 };
 
-export default React.memo(Constraint);
+export default valueMemo(Constraint);

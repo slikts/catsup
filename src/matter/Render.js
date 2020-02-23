@@ -1,5 +1,8 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Matter from "matter-js";
+import { ValueObject } from "tuplerone";
+import useDeepCompareEffect from "use-deep-compare-effect";
+
 import { useEngine } from "./Engine";
 import styles from "./Render.module.scss";
 
@@ -14,10 +17,6 @@ const Render = ({
   const engine = useEngine();
 
   useEffect(() => {
-    if (!engine) {
-      return;
-    }
-
     const render = Matter.Render.create({
       element: elementRef.current,
       engine,

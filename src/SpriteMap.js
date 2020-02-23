@@ -62,4 +62,4 @@ const SpriteMap = ({ docs, margin = 40, children }) => {
   return <Provider value={map}>{children}</Provider>;
 };
 
-export default React.memo(SpriteMap);
+export default SpriteMap;

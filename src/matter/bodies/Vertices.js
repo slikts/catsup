@@ -42,16 +42,17 @@ const Vertices = ({
     const scaledHeight = _height * scale * ratio;
 
     const svg = (
-      <use
-        xlinkHref={`#${cloneID}`}
-        ref={ref}
-        width={px(scaledWidth)}
-        height={px(scaledHeight)}
-        key={cloneID}
-        x={px(-scaledWidth / 2)}
-        y={px(-scaledHeight / 2)}
-        {...cloneProps}
-      />
+      <g ref={ref}>
+        <use
+          xlinkHref={`#${cloneID}`}
+          width={px(scaledWidth)}
+          height={px(scaledHeight)}
+          key={cloneID}
+          x={px(-scaledWidth / 2)}
+          y={px(-scaledHeight / 2)}
+          {...cloneProps}
+        />
+      </g>
     );
     body.clone = {
       svg,
@@ -64,4 +65,4 @@ const Vertices = ({
   return <Body create={create} {...props} />;
 };
 
-export default React.memo(Vertices);
+export default Vertices;

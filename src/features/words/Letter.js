@@ -14,39 +14,52 @@ const Letter = ({ x, y, letter, ...props }) => {
 
   return (
     <Constraint
-      render={ValueObject({
-        visible: false
-      })}
+      render={
+        {
+          // visible: false
+        }
+      }
       stiffness={1}
     >
       <Circle
         x={x}
         y={y}
         radius={55}
-        options={ValueObject({
+        options={{
           isSensor: true,
           render: {
-            visible: false
+            // visible: false
           }
-        })}
+        }}
       />
-      <Shape
+      <Circle
+        x={x + 100}
+        y={y}
+        radius={55}
+        options={{
+          isSensor: true,
+          render: {
+            // visible: false
+          }
+        }}
+      />
+      {/* <Shape
         x={x}
         y={y}
-        paths={ValueObject([shape])}
+        paths={[shape]}
         cloneID={id}
-        cloneProps={ValueObject({
+        cloneProps={{
           className: styles.Letter
-        })}
-        options={ValueObject({
+        }}
+        options={{
           render: {
-            visible: false
+            // visible: false
           }
-        })}
+        }}
         {...props}
-      />
+      /> */}
     </Constraint>
   );
 };
 
-export default React.memo(Letter);
+export default Letter;

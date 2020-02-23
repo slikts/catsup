@@ -2,33 +2,25 @@ import React, { useEffect } from "react";
 import Matter from "matter-js";
 import { useEngine } from "../Engine";
 
-const Body = ({ create, clone, setBody = null } = {}) => {
+const Body = ({ children: createBody, bodyRef = null } = {}) => {
   const engine = useEngine();
 
   useEffect(() => {
-    if (!engine) {
-      return;
+    const body = createBody();
+    if (bodyRef) {
+      bodyRef.current = body;
     }
-    const body = create();
-    if (setBody) {
-      setBody(body);
-    }
-
-    if (clone) {
-      body.clone = clone;
-    }
-
     Matter.World.add(engine.world, body);
 
     return () => {
       Matter.World.remove(engine.world, body);
-      if (setBody) {
-        setBody(null);
+      if (bodyRef) {
+        bodyRef.current = body;
       }
     };
-  }, [setBody, engine, create, clone]);
+  }, [engine, createBody, bodyRef]);
 
   return null;
 };
 
-export default React.memo(Body);
+export default Body;

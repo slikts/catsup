@@ -1,3 +1,6 @@
+import { memo } from "react";
+import { ValueObject, shallow } from "tuplerone";
+
 export const randomSuffix = Math.round(Math.random() * 1e10).toString(32);
 
 export const cESVG = name =>
@@ -10,3 +13,10 @@ export const parseViewbox = viewbox => {
     .map(Number);
   return { x, y, width, height };
 };
+
+export const valueCompare = (prev, next) => {
+  const nextValue = ValueObject(next);
+  Object.assign(next, nextValue);
+  return ValueObject(prev) === nextValue;
+};
+export const valueMemo = component => memo(component, valueCompare);

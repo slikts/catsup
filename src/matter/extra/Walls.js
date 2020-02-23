@@ -1,7 +1,8 @@
 import React from "react";
 import Rectangle from "../bodies/Rectangle";
+import { valueMemo } from "../util";
 
-const Walls = ({ x, y, width, height, wallWidth = 100, options } = {}) => {
+const Walls = ({ x, y, width, height, wallWidth = 100, options }) => {
   const props = {
     options: {
       ...options,
@@ -44,4 +45,4 @@ const Walls = ({ x, y, width, height, wallWidth = 100, options } = {}) => {
   );
 };
 
-export default React.memo(Walls);
+export default valueMemo(Walls);
